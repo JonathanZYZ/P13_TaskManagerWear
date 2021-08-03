@@ -11,6 +11,7 @@ public class AddActivity extends AppCompatActivity {
 
     EditText etName, etDes;
     Button btnAdd, btnCancel;
+    DBHelper dbh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +26,9 @@ public class AddActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                etName.getText();
-                etDes.getText();
+                String name = etName.getText().toString();
+                String des = etDes.getText().toString();
+                dbh.insertTask(name, des);
 
             }
         });
