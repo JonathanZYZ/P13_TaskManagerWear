@@ -17,7 +17,7 @@ import java.util.Calendar;
 public class AddActivity extends AppCompatActivity {
 
     int reqCode = 12345;
-    EditText etName, etDes;
+    EditText etName, etDes, etTime;
     Button btnAdd, btnCancel;
     DBHelper dbh = new DBHelper(this);
 
@@ -28,6 +28,7 @@ public class AddActivity extends AppCompatActivity {
 
         etName = findViewById(R.id.etName);
         etDes = findViewById(R.id.etDes);
+        etTime = findViewById(R.id.etTime);
         btnAdd = findViewById(R.id.btnAdd);
         btnCancel = findViewById(R.id.btnCancel);
 
@@ -36,14 +37,20 @@ public class AddActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String name = etName.getText().toString();
                 String des = etDes.getText().toString();
+                Integer time = Integer.parseInt(etTime.getText().toString());
+
                 Log.d("TEST","TEST: "+des+" "+name);
                 dbh.insertTask(des, name);
 
                 Calendar cal = Calendar.getInstance();
-                cal.add(Calendar.SECOND, 5);
+                cal.add(Calendar.SECOND, time);
 
                 Intent intent = new Intent(AddActivity.this,
                         ScheduledNotificationReceiver.class);
+
+                intent.putExtra("name", name);
+                intent.putExtra("description", des);
+//                intent.putExtra("Next Notification time", time);
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(
                         AddActivity.this, reqCode,
