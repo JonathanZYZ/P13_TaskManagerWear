@@ -7,8 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.myapplicationdev.android.ps_taskmanager.Task;
-
 import java.util.ArrayList;
 
 public class DBHelper extends SQLiteOpenHelper {
