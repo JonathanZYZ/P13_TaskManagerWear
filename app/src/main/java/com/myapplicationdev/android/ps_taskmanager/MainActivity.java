@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<Task> aa;
     ArrayList<Task> al;
     DBHelper dbh;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,20 +26,28 @@ public class MainActivity extends AppCompatActivity {
         lvReminders = (ListView) findViewById(R.id.lvReminders);
         btnAdd = (Button) findViewById(R.id.btnAdd);
         dbh = new DBHelper(MainActivity.this);
-        al = new ArrayList<Task>();
-        if (!dbh.getTasks().isEmpty()){
-            al = dbh.getTasks();
-        }
-
-        aa = new ArrayAdapter<Task>(getApplicationContext(),R.layout.row,al);
-        lvReminders.setAdapter(aa);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),AddActivity.class);
+                Intent i = new Intent(getApplicationContext(), AddActivity.class);
                 startActivity(i);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        al = new ArrayList<Task>();
+        if (!dbh.getTasks().isEmpty()) {
+            al = dbh.getTasks();
+        }
+
+        aa = new ArrayAdapter<Task>(getApplicationContext(), android.R.layout.simple_list_item_1, al);
+        aa.notifyDataSetChanged();
+        lvReminders.setAdapter(aa);
+
+
     }
 }
