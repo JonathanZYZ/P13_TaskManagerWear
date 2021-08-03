@@ -24,9 +24,12 @@ public class MainActivity extends AppCompatActivity {
 
         lvReminders = (ListView) findViewById(R.id.lvReminders);
         btnAdd = (Button) findViewById(R.id.btnAdd);
-
+        dbh = new DBHelper(MainActivity.this);
         al = new ArrayList<Task>();
-        al = dbh.getTasks();
+        if (!dbh.getTasks().isEmpty()){
+            al = dbh.getTasks();
+        }
+
         aa = new ArrayAdapter<Task>(getApplicationContext(),R.layout.row,al);
         lvReminders.setAdapter(aa);
 
