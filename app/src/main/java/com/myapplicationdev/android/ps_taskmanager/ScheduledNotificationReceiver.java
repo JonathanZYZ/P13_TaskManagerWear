@@ -22,7 +22,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String name = intent.getExtras().getString("name");
-        String description = intent.getExtras().getString("des");
+        String description = intent.getExtras().getString("description");
         DBHelper dbh = new DBHelper(context);
         NotificationManager notificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
