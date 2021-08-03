@@ -36,7 +36,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
             notificationManager.createNotificationChannel(channel);
         }
 
-        Intent i = new Intent(context,AddActivity.class);
+        Intent i = new Intent(context,MainActivity.class);
         PendingIntent pIntent = PendingIntent.getActivity
                 ( context, reqCode, i,
                         PendingIntent.FLAG_CANCEL_CURRENT);
