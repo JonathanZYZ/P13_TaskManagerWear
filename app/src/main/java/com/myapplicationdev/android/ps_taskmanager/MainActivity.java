@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnAdd;
     ArrayAdapter<Task> aa;
     ArrayList<Task> al;
-
+    DBHelper dbh;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         btnAdd = (Button) findViewById(R.id.btnAdd);
 
         al = new ArrayList<Task>();
+        al = dbh.getTasks();
         aa = new ArrayAdapter<Task>(getApplicationContext(),R.layout.row,al);
         lvReminders.setAdapter(aa);
 
