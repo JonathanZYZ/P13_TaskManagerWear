@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -47,6 +48,18 @@ public class MainActivity extends AppCompatActivity {
         aa = new ArrayAdapter<Task>(getApplicationContext(), android.R.layout.simple_list_item_1, al);
         aa.notifyDataSetChanged();
         lvReminders.setAdapter(aa);
+
+        lvReminders.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Task selectedContact = al.get(position);
+                Intent i = new Intent(getBaseContext(), EditActivity.class);
+                i.putExtra("data", selectedContact);
+                startActivity(i);
+
+            }
+        });
 
 
     }

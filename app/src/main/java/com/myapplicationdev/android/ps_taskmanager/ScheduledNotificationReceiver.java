@@ -13,6 +13,7 @@ import android.os.Build;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.RemoteInput;
 
 public class ScheduledNotificationReceiver extends BroadcastReceiver {
 
@@ -40,6 +41,38 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
         PendingIntent pIntent = PendingIntent.getActivity
                 ( context, reqCode, i,
                         PendingIntent.FLAG_CANCEL_CURRENT);
+
+        NotificationCompat.Action action = new
+                NotificationCompat.Action.Builder(
+                R.mipmap.ic_launcher,
+                "Lunch App",
+                pIntent).build();
+
+        Intent intentreply = new Intent(context,
+                ReplyActivity.class);
+        PendingIntent pendingIntentReply = PendingIntent.getActivity
+                (context, 0, intentreply,
+                        PendingIntent.FLAG_UPDATE_CURRENT);
+
+        RemoteInput ri = new RemoteInput.Builder("status")
+                .setLabel("Status report")
+                .setChoices(new String [] {"Completed", "Not yet"})
+                .build();
+
+        NotificationCompat.Action action2 = new
+                NotificationCompat.Action.Builder(
+                R.mipmap.ic_launcher,
+                "Reply",
+                pendingIntentReply)
+                .addRemoteInput(ri)
+                .build();
+
+
+        NotificationCompat.WearableExtender extender = new
+                NotificationCompat.WearableExtender();
+        extender.addAction(action);
+        extender.addAction(action2);
+
         //Big picture
         Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.gpang);
         // bigPicture
@@ -70,6 +103,8 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
         // Vibration
         builder.setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
         builder.setAutoCancel(true);
+
+        builder.extend(extender);
 
         Notification n = builder.build();
         notificationManager.notify(123, n);

@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PS_TaskManager">
         <activity
+            android:name=".EditActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ReplyActivity"
+            android:exported="true" />
+        <activity
             android:name=".AddActivity"
             android:exported="true" />
 
