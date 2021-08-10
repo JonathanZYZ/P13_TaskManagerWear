@@ -1,6 +1,7 @@
 package com.myapplicationdev.android.ps_taskmanager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.RemoteInput;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -31,6 +33,21 @@ public class AddActivity extends AppCompatActivity {
         etTime = findViewById(R.id.etTime);
         btnAdd = findViewById(R.id.btnAdd);
         btnCancel = findViewById(R.id.btnCancel);
+
+        CharSequence reply = null;
+        Intent intent = getIntent();
+        Bundle remoteInput = RemoteInput.getResultsFromIntent(intent);
+        if (remoteInput != null){
+            reply = remoteInput.getCharSequence("status3");
+        }
+
+        if(reply != null){
+            Toast.makeText(AddActivity.this, "You have indicated: " + reply,
+                    Toast.LENGTH_SHORT).show();
+
+            String s1 = reply.toString();
+            etDes.setText(s1);
+        }
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override

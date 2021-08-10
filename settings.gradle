@@ -8,3 +8,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "PS_TaskManager"
 include ':app'
+include ':wear'
